@@ -24,7 +24,7 @@
     --blue-glow:rgba(37,99,235,.35);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{background:var(--navy-800);color:var(--text);font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic UI",sans-serif;-webkit-font-smoothing:antialiased;line-height:1.7;font-weight:400}
+  html,body{background:var(--navy-800);color:var(--text);font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic UI",sans-serif;-webkit-font-smoothing:antialiased;line-height:1.7;font-weight:400;overflow-x:hidden}
   img{max-width:100%;display:block}
   a{color:inherit;text-decoration:none}
   button{font:inherit;color:inherit;border:none;background:none;cursor:pointer}
@@ -33,7 +33,7 @@
   @media(min-width:768px){.wrap{padding:0 40px}}
 
   /* ============ HEADER ============ */
-  .header{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);background:rgba(6,16,30,.55);border-bottom:1px solid var(--line-soft)}
+  .header{position:fixed;top:0;left:0;right:0;z-index:1002;backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);background:rgba(6,16,30,.55);border-bottom:1px solid var(--line-soft)}
   .header__inner{display:flex;align-items:center;justify-content:space-between;height:64px}
   @media(min-width:768px){.header__inner{height:76px}}
   .logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.08em}
@@ -61,8 +61,8 @@
   .ham.is-open span::after{top:0;transform:rotate(-45deg)}
 
   /* mobile drawer */
-  .mob-nav{position:fixed;inset:0;background:var(--navy-900);z-index:1000;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:0;
-    opacity:0;pointer-events:none;transition:opacity .3s}
+  .mob-nav{position:fixed;top:64px;left:0;right:0;bottom:0;background:var(--navy-900);z-index:1001;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:0;opacity:0;pointer-events:none;transition:opacity .3s}
+  @media(min-width:768px){.mob-nav{top:76px}}
   .mob-nav.is-open{opacity:1;pointer-events:auto}
   .mob-nav a{font-size:24px;font-weight:700;color:var(--text-muted);padding:18px 0;border-bottom:1px solid var(--line);width:240px;text-align:center;transition:color .2s}
   .mob-nav a:last-child{border-bottom:none}
