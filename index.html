@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SOCIAL DRIVE｜SNS運用代行サービス</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" />
+<style>
+  :root{
+    --navy-900:#06101e;
+    --navy-800:#0a1628;
+    --navy-700:#0f1f36;
+    --navy-600:#172a44;
+    --navy-500:#1e3554;
+    --line:rgba(255,255,255,.10);
+    --line-soft:rgba(255,255,255,.06);
+    --text:#f4f6fb;
+    --text-muted:#a9b4c7;
+    --text-dim:#6b7790;
+    --blue:#2563eb;
+    --blue-bright:#3b82f6;
+    --blue-glow:rgba(37,99,235,.35);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--navy-800);color:var(--text);font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic UI",sans-serif;-webkit-font-smoothing:antialiased;line-height:1.7;font-weight:400}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;border:none;background:none;cursor:pointer}
+  .en{font-family:"Inter",sans-serif;letter-spacing:.04em}
+  .wrap{width:100%;max-width:1200px;margin:0 auto;padding:0 24px}
+  @media(min-width:768px){.wrap{padding:0 40px}}
+
+  /* ============ HEADER ============ */
+  .header{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);background:rgba(6,16,30,.55);border-bottom:1px solid var(--line-soft)}
+  .header__inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+  @media(min-width:768px){.header__inner{height:76px}}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.08em}
+  .logo__mark{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,#3b82f6,#1d4ed8);position:relative}
+  .logo__mark::after{content:"";position:absolute;inset:7px;border-radius:3px;background:#06101e}
+  .logo__name{font-family:"Inter",sans-serif;font-size:15px}
+  .logo__name span{color:var(--blue-bright)}
+  .nav{display:none;align-items:center;gap:32px;font-size:13px;color:var(--text-muted)}
+  @media(min-width:980px){.nav{display:flex}}
+  .nav a{transition:color .2s}
+  .nav a:hover{color:#fff}
+  .nav__cta{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;background:var(--blue);color:#fff;border-radius:999px;font-size:13px;font-weight:600;transition:transform .2s,background .2s}
+  .nav__cta:hover{background:var(--blue-bright);transform:translateY(-1px)}
+  .nav__cta svg{width:14px;height:14px}
+
+  /* hamburger */
+  .ham{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:10px;border:1px solid var(--line)}
+  @media(min-width:980px){.ham{display:none}}
+  .ham span{display:block;width:18px;height:1.5px;background:#fff;position:relative}
+  .ham span::before,.ham span::after{content:"";position:absolute;left:0;width:18px;height:1.5px;background:#fff}
+  .ham span::before{top:-6px}.ham span::after{top:6px}
+
+  /* ============ FV ============ */
+  .fv{position:relative;min-height:100svh;display:flex;align-items:flex-end;padding:120px 0 60px;overflow:hidden;isolation:isolate}
+  .fv__bg{position:absolute;inset:0;z-index:-2}
+  .fv__bg img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+  .fv__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,16,30,.55) 0%,rgba(6,16,30,.7) 55%,rgba(6,16,30,.95) 100%),linear-gradient(90deg,rgba(6,16,30,.85) 0%,rgba(6,16,30,.35) 60%,rgba(6,16,30,.2) 100%)}
+  .fv__grid{position:absolute;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse at 20% 50%,#000 30%,transparent 70%)}
+  .fv__inner{position:relative;width:100%}
+  .fv__eyebrow{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;font-size:11px;letter-spacing:.18em;color:var(--text);background:rgba(255,255,255,.04);margin-bottom:32px}
+  .fv__eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--blue-bright);box-shadow:0 0 0 4px rgba(59,130,246,.2)}
+  .fv__title{font-size:clamp(36px,8.5vw,84px);font-weight:900;line-height:1.08;letter-spacing:-.01em;margin-bottom:28px}
+  .fv__title em{font-style:normal;background:linear-gradient(135deg,#60a5fa,#2563eb);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .fv__title .br{display:block}
+  .fv__lead{font-size:15px;line-height:2;color:var(--text-muted);max-width:560px;margin-bottom:44px}
+  @media(min-width:768px){.fv__lead{font-size:17px}}
+  .fv__ctas{display:flex;flex-direction:column;gap:14px}
+  @media(min-width:480px){.fv__ctas{flex-direction:row;align-items:center}}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:18px 28px;font-size:14px;font-weight:700;border-radius:999px;transition:all .25s;letter-spacing:.02em}
+  .btn--primary{background:var(--blue);color:#fff;box-shadow:0 10px 30px -10px var(--blue-glow)}
+  .btn--primary:hover{background:var(--blue-bright);transform:translateY(-2px);box-shadow:0 16px 40px -10px var(--blue-glow)}
+  .btn--ghost{background:rgba(255,255,255,.06);border:1px solid var(--line);color:#fff}
+  .btn--ghost:hover{background:rgba(255,255,255,.12)}
+  .btn svg{width:16px;height:16px}
+
+  .fv__meta{position:absolute;right:0;bottom:60px;display:none;flex-direction:column;gap:14px;align-items:flex-end;font-family:"Inter",sans-serif;font-size:11px;letter-spacing:.18em;color:var(--text-dim);text-transform:uppercase}
+  @media(min-width:980px){.fv__meta{display:flex}}
+  .fv__meta::after{content:"";width:1px;height:80px;background:linear-gradient(180deg,transparent,var(--line),transparent);position:absolute;right:14px;top:-100px}
+
+  .fv__ticker{position:absolute;left:0;right:0;bottom:0;border-top:1px solid var(--line-soft);background:rgba(6,16,30,.6);backdrop-filter:blur(8px);overflow:hidden;display:none}
+  @media(min-width:768px){.fv__ticker{display:block}}
+  .fv__ticker-track{display:flex;gap:60px;padding:18px 0;animation:tick 40s linear infinite;white-space:nowrap;font-family:"Inter",sans-serif;font-size:12px;letter-spacing:.2em;color:var(--text-dim)}
+  .fv__ticker-track span{display:inline-flex;align-items:center;gap:60px}
+  .fv__ticker-track span::after{content:"●";color:var(--blue-bright);font-size:6px;margin-left:60px}
+  @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ============ SHARED SECTION ============ */
+  section{position:relative}
+  .sec{padding:96px 0}
+  @media(min-width:768px){.sec{padding:140px 0}}
+  .sec__head{margin-bottom:64px}
+  @media(min-width:768px){.sec__head{margin-bottom:96px}}
+  .eyebrow{display:flex;align-items:center;gap:12px;font-family:"Inter",sans-serif;font-size:12px;letter-spacing:.24em;color:var(--blue-bright);text-transform:uppercase;margin-bottom:24px}
+  .eyebrow::before{content:"";width:32px;height:1px;background:var(--blue-bright)}
+  .sec__title{font-size:clamp(30px,5vw,52px);font-weight:900;line-height:1.2;letter-spacing:-.01em;margin-bottom:24px}
+  .sec__title .accent{color:var(--blue-bright)}
+  .sec__lead{font-size:15px;color:var(--text-muted);max-width:640px;line-height:2}
+  @media(min-width:768px){.sec__lead{font-size:16px}}
+
+  /* ============ ABOUT ============ */
+  .about{background:linear-gradient(180deg,var(--navy-800) 0%,var(--navy-900) 100%)}
+  .about__intro{display:grid;grid-template-columns:1fr;gap:40px;margin-bottom:80px}
+  @media(min-width:980px){.about__intro{grid-template-columns:1fr 1fr;gap:80px;align-items:end}}
+  .about__quote{padding:32px 0 32px 28px;border-left:2px solid var(--blue-bright);font-size:18px;line-height:1.9;font-weight:500}
+  @media(min-width:768px){.about__quote{font-size:22px}}
+  .about__quote em{font-style:normal;color:var(--blue-bright)}
+  .strengths{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+  @media(min-width:768px){.strengths{grid-template-columns:repeat(3,1fr)}}
+  .strength{background:var(--navy-800);padding:40px 32px;display:flex;flex-direction:column;gap:20px;transition:background .3s}
+  .strength:hover{background:var(--navy-700)}
+  .strength__num{font-family:"Inter",sans-serif;font-size:13px;letter-spacing:.2em;color:var(--blue-bright)}
+  .strength__icon{width:48px;height:48px;border-radius:12px;background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.3);display:flex;align-items:center;justify-content:center;color:var(--blue-bright)}
+  .strength__icon svg{width:22px;height:22px}
+  .strength__title{font-size:20px;font-weight:700;line-height:1.4}
+  .strength__desc{font-size:14px;color:var(--text-muted);line-height:1.9}
+
+  /* ============ SERVICE ============ */
+  .service{background:var(--navy-900)}
+  .plans{display:grid;grid-template-columns:1fr;gap:20px}
+  @media(min-width:768px){.plans{grid-template-columns:repeat(3,1fr);gap:24px}}
+  .plan{background:var(--navy-800);border:1px solid var(--line);border-radius:24px;padding:40px 32px;display:flex;flex-direction:column;position:relative;transition:transform .25s,border-color .25s}
+  .plan:hover{transform:translateY(-4px);border-color:rgba(59,130,246,.4)}
+  .plan--feat{background:linear-gradient(180deg,var(--navy-700),var(--navy-800));border-color:rgba(59,130,246,.5);box-shadow:0 30px 60px -30px var(--blue-glow)}
+  .plan__badge{position:absolute;top:-12px;left:32px;padding:6px 14px;background:var(--blue);color:#fff;font-size:11px;font-weight:700;letter-spacing:.12em;border-radius:999px}
+  .plan__name{font-family:"Inter",sans-serif;font-size:13px;letter-spacing:.2em;color:var(--text-dim);margin-bottom:8px}
+  .plan__title{font-size:24px;font-weight:800;margin-bottom:16px}
+  .plan__desc{font-size:13px;color:var(--text-muted);line-height:1.8;margin-bottom:28px;min-height:60px}
+  .plan__price{display:flex;align-items:baseline;gap:6px;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--line)}
+  .plan__price-num{font-family:"Inter",sans-serif;font-size:44px;font-weight:800;letter-spacing:-.02em}
+  .plan__price-unit{font-size:13px;color:var(--text-muted)}
+  .plan__price-tax{font-size:11px;color:var(--text-dim);margin-left:auto}
+  .plan__features{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:32px;flex:1}
+  .plan__features li{display:flex;gap:12px;font-size:14px;color:var(--text);line-height:1.6}
+  .plan__features li::before{content:"";flex-shrink:0;width:18px;height:18px;border-radius:50%;background:rgba(59,130,246,.15);background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%233b82f6' stroke-width='2.5'><path d='M3 8l3.5 3.5L13 5'/></svg>");background-repeat:no-repeat;background-position:center;background-size:11px;margin-top:2px}
+  .plan__cta{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:999px;font-size:13px;font-weight:700;transition:all .2s;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+  .plan__cta:hover{background:rgba(255,255,255,.08)}
+  .plan--feat .plan__cta{background:var(--blue);border-color:var(--blue)}
+  .plan--feat .plan__cta:hover{background:var(--blue-bright)}
+
+  .service__note{margin-top:32px;font-size:12px;color:var(--text-dim);text-align:center}
+
+  /* ============ FLOW ============ */
+  .flow{background:var(--navy-800);position:relative}
+  .flow::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 80% 0%,rgba(37,99,235,.08),transparent 50%);pointer-events:none}
+  .flow__list{display:flex;flex-direction:column;gap:0;border-left:1px solid var(--line);margin-left:24px;position:relative}
+  @media(min-width:768px){.flow__list{margin-left:0;border-left:none}}
+  .step{display:grid;grid-template-columns:1fr;gap:8px;padding:32px 0 32px 32px;position:relative}
+  @media(min-width:768px){.step{grid-template-columns:140px 1fr;gap:48px;padding:36px 0;border-bottom:1px solid var(--line-soft)}.step:last-child{border-bottom:none}}
+  .step::before{content:"";position:absolute;left:-7px;top:42px;width:13px;height:13px;border-radius:50%;background:var(--navy-800);border:2px solid var(--blue-bright);box-shadow:0 0 0 4px var(--navy-800)}
+  @media(min-width:768px){.step::before{display:none}}
+  .step__num{font-family:"Inter",sans-serif;font-size:13px;font-weight:600;letter-spacing:.2em;color:var(--blue-bright);display:flex;align-items:flex-start;gap:14px}
+  .step__num-big{font-size:64px;font-weight:800;line-height:.9;letter-spacing:-.04em;color:#fff;opacity:.1;display:none}
+  @media(min-width:768px){.step__num-big{display:block}}
+  .step__num-small{font-size:11px}
+  .step__body{display:flex;flex-direction:column;gap:10px}
+  .step__title{font-size:22px;font-weight:700;line-height:1.4}
+  @media(min-width:768px){.step__title{font-size:26px}}
+  .step__desc{font-size:14px;color:var(--text-muted);line-height:1.9;max-width:680px}
+  .step__meta{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-size:11px;letter-spacing:.18em;color:var(--text-dim);margin-top:6px}
+  .step__meta::before{content:"";width:14px;height:1px;background:var(--text-dim)}
+
+  /* ============ WORKS ============ */
+  .works{background:var(--navy-900)}
+  .works__grid{display:grid;grid-template-columns:1fr;gap:24px}
+  @media(min-width:768px){.works__grid{grid-template-columns:repeat(2,1fr);gap:32px}}
+  .work{background:var(--navy-800);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:transform .3s,border-color .3s;cursor:pointer}
+  .work:hover{transform:translateY(-4px);border-color:rgba(59,130,246,.4)}
+  .work__img{aspect-ratio:16/10;background:var(--navy-700);position:relative;overflow:hidden}
+  .work__img img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .work:hover .work__img img{transform:scale(1.05)}
+  .work__img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(6,16,30,.7) 100%)}
+  .work__tag{position:absolute;top:16px;left:16px;z-index:2;padding:6px 12px;background:rgba(6,16,30,.7);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:999px;font-size:11px;letter-spacing:.1em;color:#fff}
+  .work__body{padding:28px;display:flex;flex-direction:column;gap:16px}
+  .work__industry{font-family:"Inter",sans-serif;font-size:11px;letter-spacing:.2em;color:var(--blue-bright)}
+  .work__title{font-size:20px;font-weight:700;line-height:1.5}
+  .work__stats{display:flex;gap:24px;padding-top:20px;border-top:1px solid var(--line-soft)}
+  .work__stat{display:flex;flex-direction:column;gap:4px}
+  .work__stat-num{font-family:"Inter",sans-serif;font-size:24px;font-weight:800;color:var(--blue-bright)}
+  .work__stat-label{font-size:11px;color:var(--text-dim);letter-spacing:.05em}
+
+  /* ============ FAQ ============ */
+  .faq{background:var(--navy-800)}
+  .faq__list{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+  .faq__item{border-bottom:1px solid var(--line)}
+  .faq__q{width:100%;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding:28px 0;text-align:left;font-size:16px;font-weight:600;line-height:1.6;transition:color .2s}
+  @media(min-width:768px){.faq__q{font-size:18px;padding:32px 0}}
+  .faq__q:hover{color:var(--blue-bright)}
+  .faq__q-mark{flex-shrink:0;display:flex;align-items:center;gap:12px}
+  .faq__q-letter{font-family:"Inter",sans-serif;font-weight:800;color:var(--blue-bright);font-size:18px;letter-spacing:.05em;margin-right:12px}
+  .faq__icon{width:32px;height:32px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .25s;flex-shrink:0}
+  .faq__icon svg{width:14px;height:14px;transition:transform .3s}
+  .faq__item--open .faq__icon{background:var(--blue);border-color:var(--blue)}
+  .faq__item--open .faq__icon svg{transform:rotate(45deg)}
+  .faq__a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+  .faq__item--open .faq__a{grid-template-rows:1fr}
+  .faq__a-inner{overflow:hidden}
+  .faq__a-content{padding:0 0 32px 0;font-size:14px;line-height:2;color:var(--text-muted);max-width:820px;display:flex;gap:16px}
+  @media(min-width:768px){.faq__a-content{font-size:15px}}
+  .faq__a-letter{font-family:"Inter",sans-serif;font-weight:800;color:var(--text-dim);font-size:18px;flex-shrink:0}
+
+  /* ============ CTA ============ */
+  .cta{position:relative;padding:120px 0;overflow:hidden;isolation:isolate}
+  .cta__bg{position:absolute;inset:0;z-index:-2}
+  .cta__bg img{width:100%;height:100%;object-fit:cover}
+  .cta__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(6,16,30,.92),rgba(15,31,54,.85)),linear-gradient(90deg,rgba(37,99,235,.25),transparent 60%)}
+  .cta__inner{text-align:center;max-width:780px;margin:0 auto;position:relative;z-index:1}
+  .cta__eyebrow{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;background:rgba(37,99,235,.15);border:1px solid rgba(59,130,246,.4);border-radius:999px;font-size:11px;letter-spacing:.18em;color:#fff;margin-bottom:32px}
+  .cta__eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--blue-bright);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(59,130,246,.6)}50%{box-shadow:0 0 0 8px rgba(59,130,246,0)}}
+  .cta__title{font-size:clamp(32px,6vw,56px);font-weight:900;line-height:1.2;letter-spacing:-.01em;margin-bottom:24px}
+  .cta__lead{font-size:15px;color:var(--text-muted);line-height:2;margin-bottom:48px}
+  @media(min-width:768px){.cta__lead{font-size:17px}}
+  .cta__ctas{display:flex;flex-direction:column;gap:14px;justify-content:center;align-items:center}
+  @media(min-width:480px){.cta__ctas{flex-direction:row}}
+  .cta__meta{display:flex;flex-direction:column;gap:8px;align-items:center;margin-top:40px;padding-top:40px;border-top:1px solid var(--line-soft);font-size:13px;color:var(--text-muted)}
+  @media(min-width:768px){.cta__meta{flex-direction:row;gap:32px;justify-content:center}}
+  .cta__meta-item{display:flex;align-items:center;gap:10px}
+  .cta__meta-item svg{width:16px;height:16px;color:var(--blue-bright)}
+
+  /* ============ FOOTER ============ */
+  .footer{background:#040a14;border-top:1px solid var(--line)}
+  .footer__top{padding:80px 0 60px;display:grid;grid-template-columns:1fr;gap:48px}
+  @media(min-width:768px){.footer__top{grid-template-columns:1.4fr repeat(3,1fr);gap:60px}}
+  .footer__brand{display:flex;flex-direction:column;gap:20px}
+  .footer__desc{font-size:13px;color:var(--text-muted);line-height:1.9;max-width:320px}
+  .footer__col-title{font-family:"Inter",sans-serif;font-size:11px;letter-spacing:.2em;color:var(--text-dim);margin-bottom:20px;text-transform:uppercase}
+  .footer__list{list-style:none;display:flex;flex-direction:column;gap:12px;font-size:13px;color:var(--text-muted)}
+  .footer__list a{transition:color .2s}
+  .footer__list a:hover{color:#fff}
+  .footer__bottom{padding:24px 0;border-top:1px solid var(--line-soft);display:flex;flex-direction:column;gap:12px;align-items:flex-start;font-size:11px;color:var(--text-dim);font-family:"Inter",sans-serif;letter-spacing:.08em}
+  @media(min-width:768px){.footer__bottom{flex-direction:row;align-items:center;justify-content:space-between}}
+
+  /* utility */
+  .placeholder-photo{position:relative;background:var(--navy-700);overflow:hidden}
+  .placeholder-photo::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.025) 0,rgba(255,255,255,.025) 2px,transparent 2px,transparent 10px)}
+  .placeholder-photo__label{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:"Inter",monospace;font-size:11px;letter-spacing:.15em;color:rgba(255,255,255,.4);text-transform:uppercase;text-align:center;z-index:1;display:none}
+  .placeholder-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+</style>
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header class="header">
+  <div class="wrap header__inner">
+    <a href="#" class="logo">
+      <span class="logo__mark"></span>
+      <span class="logo__name">SOCIAL<span>DRIVE</span></span>
+    </a>
+    <nav class="nav">
+      <a href="#about">About</a>
+      <a href="#service">Service</a>
+      <a href="#flow">Flow</a>
+      <a href="#works">Works</a>
+      <a href="#faq">FAQ</a>
+      <a href="reserve.html" class="nav__cta">
+        無料相談を予約
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
+      </a>
+    </nav>
+    <button class="ham" aria-label="menu"><span></span></button>
+  </div>
+</header>
+
+<!-- ===================== FV ===================== -->
+<section class="fv">
+  <div class="fv__bg">
+    <div class="placeholder-photo" style="position:absolute;inset:0">
+      <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1920&q=80&auto=format&fit=crop" alt="" onerror="this.style.display='none'" />
+      <div class="placeholder-photo__label">[ Hero Photo — Team/Office ]</div>
+    </div>
+  </div>
+  <div class="fv__grid"></div>
+
+  <div class="wrap fv__inner">
+    <div class="fv__eyebrow"><span class="en">SNS OPERATION SERVICE</span></div>
+    <h1 class="fv__title">
+      <span class="br">届けるべき人に、</span>
+      <span class="br">届く<em>言葉</em>を。</span>
+    </h1>
+    <p class="fv__lead">
+      Instagram・X・TikTok。<br />
+      戦略設計から運用・分析まで、プロが一貫して代行。<br />
+      "投稿のSNS" から、"成果のSNS" へ。
+    </p>
+    <div class="fv__ctas">
+      <a href="reserve.html" class="btn btn--primary">
+        無料相談を予約する
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+      <a href="#service" class="btn btn--ghost">
+        サービス内容を見る
+      </a>
+    </div>
+
+    <div class="fv__meta">
+      <span>SCROLL</span>
+    </div>
+  </div>
+
+  <div class="fv__ticker">
+    <div class="fv__ticker-track">
+      <span>INSTAGRAM</span><span>X (TWITTER)</span><span>TIKTOK</span><span>YOUTUBE SHORTS</span><span>STRATEGY</span><span>CONTENT</span><span>ANALYTICS</span><span>GROWTH</span>
+      <span>INSTAGRAM</span><span>X (TWITTER)</span><span>TIKTOK</span><span>YOUTUBE SHORTS</span><span>STRATEGY</span><span>CONTENT</span><span>ANALYTICS</span><span>GROWTH</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ABOUT ===================== -->
+<section id="about" class="sec about">
+  <div class="wrap">
+    <div class="sec__head">
+      <div class="eyebrow"><span class="en">About Us</span></div>
+      <h2 class="sec__title">SNSは、片手間では<br /><span class="accent">成果が出ない</span>時代へ。</h2>
+    </div>
+
+    <div class="about__intro">
+      <div class="about__quote">
+        投稿を続けても伸びない。<br />
+        運用に時間を取られて本業が回らない。<br />
+        — そんな <em>「自社運用の限界」</em> を、私たちは数字で解決します。
+      </div>
+      <p class="sec__lead">
+        SOCIAL DRIVEは、中小企業・個人事業主様のSNS運用を、戦略立案からコンテンツ制作・効果測定まで一気通貫でサポートする運用代行サービスです。100社以上の運用実績から導いた "勝ち筋" を、あなたのビジネスにも。
+      </p>
+    </div>
+
+    <div class="strengths">
+      <div class="strength">
+        <span class="strength__num">01 / STRATEGY</span>
+        <div class="strength__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+        </div>
+        <h3 class="strength__title">数字で語る、<br />戦略ファースト運用</h3>
+        <p class="strength__desc">業種・競合・ターゲットを徹底分析。KPIを設定し、ペルソナ別の投稿設計まで落とし込みます。"なんとなく投稿" は一切しません。</p>
+      </div>
+      <div class="strength">
+        <span class="strength__num">02 / TEAM</span>
+        <div class="strength__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="10" r="3"/><circle cx="16" cy="10" r="3"/><path d="M3 20c0-2.8 2.2-5 5-5s5 2.2 5 5M11 20c0-2.8 2.2-5 5-5s5 2.2 5 5"/></svg>
+        </div>
+        <h3 class="strength__title">専属チームによる<br />伴走サポート体制</h3>
+        <p class="strength__desc">ディレクター・ライター・デザイナー・編集者の4名体制で担当。月次レポートに加え、いつでもチャットで相談可能です。</p>
+      </div>
+      <div class="strength">
+        <span class="strength__num">03 / RESULT</span>
+        <div class="strength__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>
+        </div>
+        <h3 class="strength__title">成果につながる<br />KPI改善サイクル</h3>
+        <p class="strength__desc">フォロワー数だけでは終わらせません。エンゲージメント・サイト流入・問い合わせ件数まで追跡し、月次でPDCAを回します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SERVICE ===================== -->
+<section id="service" class="sec service">
+  <div class="wrap">
+    <div class="sec__head">
+      <div class="eyebrow"><span class="en">Service & Plan</span></div>
+      <h2 class="sec__title">事業フェーズに合わせた、<br />3つのプラン。</h2>
+      <p class="sec__lead">立ち上げ期から本格成長期まで、お客様の状況に応じて最適なプランをご提案します。初回3ヶ月は契約期間内であれば変更も可能です。</p>
+    </div>
+
+    <div class="plans">
+      <!-- LIGHT -->
+      <div class="plan">
+        <div class="plan__name en">PLAN 01 / LIGHT</div>
+        <h3 class="plan__title">ライトプラン</h3>
+        <p class="plan__desc">まずはSNSを始めたい・運用負担を減らしたい方向け。1媒体・月8投稿から。</p>
+        <div class="plan__price">
+          <span class="plan__price-num">98,000</span>
+          <span class="plan__price-unit">円 / 月〜</span>
+          <span class="plan__price-tax">税別</span>
+        </div>
+        <ul class="plan__features">
+          <li>SNS 1媒体の運用代行</li>
+          <li>月8投稿の企画・制作</li>
+          <li>基本コンテンツ制作（画像・テキスト）</li>
+          <li>月次レポート</li>
+          <li>チャット相談（営業日対応）</li>
+        </ul>
+        <a href="reserve.html" class="plan__cta">このプランで相談する →</a>
+      </div>
+
+      <!-- STANDARD -->
+      <div class="plan plan--feat">
+        <div class="plan__badge">RECOMMENDED</div>
+        <div class="plan__name en">PLAN 02 / STANDARD</div>
+        <h3 class="plan__title">スタンダードプラン</h3>
+        <p class="plan__desc">本格的にSNSを伸ばしたい方に。最大2媒体・月16投稿＋分析を含む決定版。</p>
+        <div class="plan__price">
+          <span class="plan__price-num">198,000</span>
+          <span class="plan__price-unit">円 / 月〜</span>
+          <span class="plan__price-tax">税別</span>
+        </div>
+        <ul class="plan__features">
+          <li>SNS 2媒体まで運用代行</li>
+          <li>月16投稿の企画・制作</li>
+          <li>リール・ショート動画制作（月2本）</li>
+          <li>競合分析・戦略設計</li>
+          <li>月次MTG＋詳細レポート</li>
+          <li>専属チャットサポート</li>
+        </ul>
+        <a href="reserve.html" class="plan__cta">このプランで相談する →</a>
+      </div>
+
+      <!-- PRO -->
+      <div class="plan">
+        <div class="plan__name en">PLAN 03 / PRO</div>
+        <h3 class="plan__title">プロプラン</h3>
+        <p class="plan__desc">複数媒体での本格展開・採用広報・ブランディングをワンチームで実行。</p>
+        <div class="plan__price">
+          <span class="plan__price-num">380,000</span>
+          <span class="plan__price-unit">円 / 月〜</span>
+          <span class="plan__price-tax">税別</span>
+        </div>
+        <ul class="plan__features">
+          <li>SNS 3媒体以上の運用代行</li>
+          <li>投稿数・動画本数オーダーメイド</li>
+          <li>UGC・インフルエンサー施策</li>
+          <li>広告運用（別途）連携可能</li>
+          <li>隔週MTG・KPIダッシュボード提供</li>
+          <li>専属ディレクター直通</li>
+        </ul>
+        <a href="reserve.html" class="plan__cta">このプランで相談する →</a>
+      </div>
+    </div>
+
+    <p class="service__note">※ 表示価格は税別・参考価格です。お客様の事業内容・媒体・投稿頻度により最適なプランをご提案いたします。</p>
+  </div>
+</section>
+
+<!-- ===================== FLOW ===================== -->
+<section id="flow" class="sec flow">
+  <div class="wrap">
+    <div class="sec__head">
+      <div class="eyebrow"><span class="en">Flow</span></div>
+      <h2 class="sec__title">ご相談から運用開始まで、<br />最短<span class="accent">2週間</span>。</h2>
+      <p class="sec__lead">面倒な手続きや書類はありません。お問い合わせから運用スタートまで、シンプルな5ステップで進行します。</p>
+    </div>
+
+    <div class="flow__list">
+      <div class="step">
+        <div class="step__num">
+          <span class="step__num-big">01</span>
+          <span class="step__num-small">STEP</span>
+        </div>
+        <div class="step__body">
+          <h3 class="step__title">無料相談・ヒアリング</h3>
+          <p class="step__desc">オンラインで30分の無料相談を実施。現状の課題・目標・運用体制をヒアリングし、SNS運用代行が最適解かどうかも含めて率直にお伝えします。</p>
+          <div class="step__meta"><span>所要時間：30分 / オンライン</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step__num">
+          <span class="step__num-big">02</span>
+          <span class="step__num-small">STEP</span>
+        </div>
+        <div class="step__body">
+          <h3 class="step__title">ご提案・お見積もり</h3>
+          <p class="step__desc">ヒアリング内容をもとに、3営業日以内に運用プランとお見積もりをご提案。複数パターンを提示するため、ご予算に応じた選択が可能です。</p>
+          <div class="step__meta"><span>3営業日以内 / 書面・オンライン</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step__num">
+          <span class="step__num-big">03</span>
+          <span class="step__num-small">STEP</span>
+        </div>
+        <div class="step__body">
+          <h3 class="step__title">ご契約・キックオフMTG</h3>
+          <p class="step__desc">契約締結後、専属チームを編成しキックオフ。アカウントの権限設定、コミュニケーションツールの導入、運用ルールの整備までサポートします。</p>
+          <div class="step__meta"><span>1〜3営業日 / オンライン</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step__num">
+          <span class="step__num-big">04</span>
+          <span class="step__num-small">STEP</span>
+        </div>
+        <div class="step__body">
+          <h3 class="step__title">戦略設計・コンテンツ制作</h3>
+          <p class="step__desc">競合分析・ペルソナ設計・KPI設定を実施したうえで、1ヶ月分のコンテンツを制作。事前承認の上、運用を開始します。</p>
+          <div class="step__meta"><span>初月2週間 / 制作・承認フロー</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step__num">
+          <span class="step__num-big">05</span>
+          <span class="step__num-small">STEP</span>
+        </div>
+        <div class="step__body">
+          <h3 class="step__title">運用開始・月次レポート</h3>
+          <p class="step__desc">設定したKPIに対する達成度を月次レポートにまとめてご報告。改善提案を含めて翌月の運用に反映します。</p>
+          <div class="step__meta"><span>毎月実施 / 継続的な改善サイクル</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WORKS ===================== -->
+<section id="works" class="sec works">
+  <div class="wrap">
+    <div class="sec__head">
+      <div class="eyebrow"><span class="en">Case Studies</span></div>
+      <h2 class="sec__title">数字で見る、<br />私たちが届けた<span class="accent">成果</span>。</h2>
+      <p class="sec__lead">小売・飲食・BtoB・採用広報など、業種を問わずご支援しています。具体的な数字とともに、代表的な事例をご紹介します。</p>
+    </div>
+
+    <div class="works__grid">
+      <a href="#" class="work">
+        <div class="work__img">
+          <span class="work__tag">飲食 / Instagram</span>
+          <div class="placeholder-photo" style="position:absolute;inset:0">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&q=80&auto=format&fit=crop" alt="" onerror="this.style.display='none'" />
+            <div class="placeholder-photo__label">[ Case 01 — Restaurant ]</div>
+          </div>
+        </div>
+        <div class="work__body">
+          <span class="work__industry">CASE 01 — RESTAURANT CHAIN</span>
+          <h3 class="work__title">予約数 月45件 → 312件。<br />都内飲食チェーン様のInstagram運用</h3>
+          <div class="work__stats">
+            <div class="work__stat">
+              <span class="work__stat-num">+593%</span>
+              <span class="work__stat-label">予約数</span>
+            </div>
+            <div class="work__stat">
+              <span class="work__stat-num">+12.4K</span>
+              <span class="work__stat-label">フォロワー</span>
+            </div>
+            <div class="work__stat">
+              <span class="work__stat-num">9ヶ月</span>
+              <span class="work__stat-label">運用期間</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="work">
+        <div class="work__img">
+          <span class="work__tag">BtoB SaaS / X</span>
+          <div class="placeholder-photo" style="position:absolute;inset:0">
+            <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&q=80&auto=format&fit=crop" alt="" onerror="this.style.display='none'" />
+            <div class="placeholder-photo__label">[ Case 02 — SaaS ]</div>
+          </div>
+        </div>
+        <div class="work__body">
+          <span class="work__industry">CASE 02 — B2B SaaS COMPANY</span>
+          <h3 class="work__title">商談化率3.2倍。<br />BtoB SaaS企業のX運用支援</h3>
+          <div class="work__stats">
+            <div class="work__stat">
+              <span class="work__stat-num">×3.2</span>
+              <span class="work__stat-label">商談化率</span>
+            </div>
+            <div class="work__stat">
+              <span class="work__stat-num">+8.7K</span>
+              <span class="work__stat-label">フォロワー</span>
+            </div>
+            <div class="work__stat">
+              <span class="work__stat-num">6ヶ月</span>
+              <span class="work__stat-label">運用期間</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="work">
+        <div class="work__img">
+          <span class="work__tag">アパレル / TikTok</span>
+          <div class="placeholder-photo" style="position:absolute;inset:0">
+            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&q=80&auto=format&fit=crop" alt="" onerror="this.style.display='none'" />
+            <div class="placeholder-photo__label">[ Case 03 — Apparel ]</div>
+          </div>
+        </div>
+        <div class="work__body">
+          <span class="work__industry">CASE 03 — APPAREL D2C</span>
+          <h3 class="work__title">EC売上 月220万円突破。<br />D2Cアパレル様のTikTok運用</h3>
+          <div class="work__stats">
+            <div class="work__stat">
+              <span class="work__stat-num">+340%</span>
+              <span class="work__stat-label">EC売上</span>
+            </div>
+            <div class="work__stat">
+              <span class="work__stat-num">1.2M</span>
+              <span class="work__stat-label">月間視聴回数</span>
+            </div>
+            <div class="work__stat">
+              <span class="work__stat-num">4ヶ月</span>
+              <span class="work__stat-label">運用期間</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="work">
+        <div class="work__img">
+          <span class="work__tag">クリニック / Instagram</span>
+          <div class="placeholder-photo" style="position:absolute;inset:0">
+            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&q=80&auto=format&fit=crop" alt="" onerror="this.style.display='none'" />
+            <div class="placeholder-photo__label">[ Case 04 — Clinic ]</div>
+          </div>
+        </div>
+        <div class="work__body">
+          <span class="work__industry">CASE 04 — MEDICAL CLINIC</span>
+          <h3 class="work__title">新規来院 月12名 → 87名。<br />美容クリニック様の運用</h3>
+          <div class="work__stats">
+            <div class="work__stat">
+              <span class="work__stat-num">+625%</span>
+              <span class="work__stat-label">新規来院</span>
+            </div>
+            <div class="work__stat">
+              <span class="work__stat-num">+5.4K</span>
+              <span class="work__stat-label">フォロワー</span>
+            </div>
+            <div class="work__stat">
+              <span class="work__stat-num">7ヶ月</span>
+              <span class="work__stat-label">運用期間</span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section id="faq" class="sec faq">
+  <div class="wrap">
+    <div class="sec__head">
+      <div class="eyebrow"><span class="en">FAQ</span></div>
+      <h2 class="sec__title">よくあるご質問</h2>
+    </div>
+
+    <div class="faq__list">
+      <div class="faq__item">
+        <button class="faq__q">
+          <span class="faq__q-mark"><span class="faq__q-letter">Q.</span>契約期間の縛りはありますか？</span>
+          <span class="faq__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M8 3v10"/></svg></span>
+        </button>
+        <div class="faq__a"><div class="faq__a-inner"><div class="faq__a-content">
+          <span class="faq__a-letter">A.</span>
+          <span>最低契約期間は3ヶ月とさせていただいております。SNS運用は短期間で成果が出にくいため、最低3ヶ月の継続をお願いしておりますが、3ヶ月以降はいつでも解約・プラン変更が可能です。</span>
+        </div></div></div>
+      </div>
+
+      <div class="faq__item">
+        <button class="faq__q">
+          <span class="faq__q-mark"><span class="faq__q-letter">Q.</span>どんな業種でも対応可能ですか？</span>
+          <span class="faq__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M8 3v10"/></svg></span>
+        </button>
+        <div class="faq__a"><div class="faq__a-inner"><div class="faq__a-content">
+          <span class="faq__a-letter">A.</span>
+          <span>飲食・小売・美容・医療・BtoB・採用広報など、幅広い業種でご支援実績がございます。一部、法令・プラットフォーム規約上対応が難しい業種もございますので、まずは無料相談にてご相談ください。</span>
+        </div></div></div>
+      </div>
+
+      <div class="faq__item">
+        <button class="faq__q">
+          <span class="faq__q-mark"><span class="faq__q-letter">Q.</span>撮影が必要な場合は対応できますか？</span>
+          <span class="faq__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M8 3v10"/></svg></span>
+        </button>
+        <div class="faq__a"><div class="faq__a-inner"><div class="faq__a-content">
+          <span class="faq__a-letter">A.</span>
+          <span>提携カメラマン・動画クリエイターによる撮影手配が可能です。月1回の定期撮影や、商品撮影・店舗ロケなど、ご要望に合わせて柔軟に対応いたします。費用は別途お見積もりとなります。</span>
+        </div></div></div>
+      </div>
+
+      <div class="faq__item">
+        <button class="faq__q">
+          <span class="faq__q-mark"><span class="faq__q-letter">Q.</span>既存アカウントの引き継ぎは可能ですか？</span>
+          <span class="faq__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M8 3v10"/></svg></span>
+        </button>
+        <div class="faq__a"><div class="faq__a-inner"><div class="faq__a-content">
+          <span class="faq__a-letter">A.</span>
+          <span>もちろん可能です。既存アカウントの現状分析を行ったうえで、これまでの世界観を踏襲しつつ改善ポイントを反映する形で運用を開始します。新規開設からのスタートにも対応しています。</span>
+        </div></div></div>
+      </div>
+
+      <div class="faq__item">
+        <button class="faq__q">
+          <span class="faq__q-mark"><span class="faq__q-letter">Q.</span>レポート以外に、運用中の連絡手段は？</span>
+          <span class="faq__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M8 3v10"/></svg></span>
+        </button>
+        <div class="faq__a"><div class="faq__a-inner"><div class="faq__a-content">
+          <span class="faq__a-letter">A.</span>
+          <span>Slack または Chatworkでの専属チャットチャンネルを開設します。営業日内であれば、ご質問・ご相談に随時対応いたします。コンテンツ承認フローもチャット上でスムーズに完結します。</span>
+        </div></div></div>
+      </div>
+
+      <div class="faq__item">
+        <button class="faq__q">
+          <span class="faq__q-mark"><span class="faq__q-letter">Q.</span>無料相談で何を話せばよいですか？</span>
+          <span class="faq__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M8 3v10"/></svg></span>
+        </button>
+        <div class="faq__a"><div class="faq__a-inner"><div class="faq__a-content">
+          <span class="faq__a-letter">A.</span>
+          <span>「何を聞けばいいかわからない」状態でも全く問題ありません。事業内容と現状の課題感をお聞かせいただければ、SNSで解決できることとできないことを率直にお伝えします。営業色のないフラットな相談の場としてお使いください。</span>
+        </div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA ===================== -->
+<section class="cta">
+  <div class="cta__bg">
+    <div class="placeholder-photo" style="position:absolute;inset:0">
+      <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80&auto=format&fit=crop" alt="" onerror="this.style.display='none'" />
+      <div class="placeholder-photo__label">[ CTA Photo — Office ]</div>
+    </div>
+  </div>
+  <div class="wrap cta__inner">
+    <div class="cta__eyebrow"><span class="en">FREE CONSULTATION</span></div>
+    <h2 class="cta__title">SNSの "なんとなく"を、<br />数字で動かす。</h2>
+    <p class="cta__lead">まずは無料相談で、貴社の現状と課題をお聞かせください。<br />SNS運用代行が最適解でない場合は、その旨も率直にお伝えします。</p>
+    <div class="cta__ctas">
+      <a href="reserve.html" class="btn btn--primary">
+        無料相談を予約する
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+    <div class="cta__meta">
+      <div class="cta__meta-item">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="6.5"/><path d="M8 4v4l2.5 2.5"/></svg>
+        所要時間 30分
+      </div>
+      <div class="cta__meta-item">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M2 6h12"/></svg>
+        オンライン対応
+      </div>
+      <div class="cta__meta-item">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 8l4 4 8-8"/></svg>
+        営業色なし
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a href="#" class="logo">
+          <span class="logo__mark"></span>
+          <span class="logo__name">SOCIAL<span>DRIVE</span></span>
+        </a>
+        <p class="footer__desc">中小企業・個人事業主のためのSNS運用代行サービス。戦略設計から実行・分析まで、ワンチームでご支援します。</p>
+      </div>
+      <div>
+        <div class="footer__col-title">Service</div>
+        <ul class="footer__list">
+          <li><a href="#about">About</a></li>
+          <li><a href="#service">プラン一覧</a></li>
+          <li><a href="#flow">ご依頼の流れ</a></li>
+          <li><a href="#works">実績</a></li>
+          <li><a href="#faq">よくある質問</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__col-title">Contact</div>
+        <ul class="footer__list">
+          <li><a href="reserve.html">無料相談を予約</a></li>
+          <li>受付：平日 10:00 - 18:00</li>
+          <li>hello@socialdrive.jp</li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__col-title">Company</div>
+        <ul class="footer__list">
+          <li>運営会社</li>
+          <li>プライバシーポリシー</li>
+          <li>特定商取引法表記</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 SOCIAL DRIVE Inc.</span>
+      <span>SNS Operation & Strategy</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq__q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq__item');
+      item.classList.toggle('faq__item--open');
+    });
+  });
+
+  // Image fallback: when img fails, show placeholder label (already there but hide image cleanly)
+  document.querySelectorAll('.placeholder-photo img').forEach(img => {
+    img.addEventListener('load', () => {
+      const label = img.nextElementSibling;
+      if(label && label.classList.contains('placeholder-photo__label')) label.style.display='none';
+    });
+  });
+</script>
+</body>
+</html>
