@@ -50,11 +50,24 @@
   .nav__cta svg{width:14px;height:14px}
 
   /* hamburger */
-  .ham{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:10px;border:1px solid var(--line)}
+  .ham{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:10px;border:1px solid var(--line);z-index:1001;position:relative;transition:border-color .2s}
   @media(min-width:980px){.ham{display:none}}
-  .ham span{display:block;width:18px;height:1.5px;background:#fff;position:relative}
-  .ham span::before,.ham span::after{content:"";position:absolute;left:0;width:18px;height:1.5px;background:#fff}
+  .ham span{display:block;width:18px;height:1.5px;background:#fff;position:relative;transition:background .2s}
+  .ham span::before,.ham span::after{content:"";position:absolute;left:0;width:18px;height:1.5px;background:#fff;transition:transform .25s,top .25s}
   .ham span::before{top:-6px}.ham span::after{top:6px}
+  /* open state */
+  .ham.is-open span{background:transparent}
+  .ham.is-open span::before{top:0;transform:rotate(45deg)}
+  .ham.is-open span::after{top:0;transform:rotate(-45deg)}
+
+  /* mobile drawer */
+  .mob-nav{position:fixed;inset:0;background:var(--navy-900);z-index:1000;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:0;
+    opacity:0;pointer-events:none;transition:opacity .3s}
+  .mob-nav.is-open{opacity:1;pointer-events:auto}
+  .mob-nav a{font-size:24px;font-weight:700;color:var(--text-muted);padding:18px 0;border-bottom:1px solid var(--line);width:240px;text-align:center;transition:color .2s}
+  .mob-nav a:last-child{border-bottom:none}
+  .mob-nav a:hover{color:#fff}
+  .mob-nav__cta{margin-top:16px;display:inline-flex !important;align-items:center;justify-content:center;gap:8px;padding:16px 32px !important;background:var(--blue);color:#fff !important;border-radius:999px;font-size:16px !important;width:auto !important;border:none !important}
 
   /* ============ FV ============ */
   .fv{position:relative;min-height:100svh;display:flex;align-items:flex-end;padding:120px 0 60px;overflow:hidden;isolation:isolate}
@@ -263,9 +276,19 @@
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
       </a>
     </nav>
-    <button class="ham" aria-label="menu"><span></span></button>
+    <button class="ham" id="hamBtn" aria-label="menu"><span></span></button>
   </div>
 </header>
+
+<!-- モバイルドロワー -->
+<nav class="mob-nav" id="mobNav">
+  <a href="#about" class="mob-nav__link">About</a>
+  <a href="#service" class="mob-nav__link">Service</a>
+  <a href="#flow" class="mob-nav__link">Flow</a>
+  <a href="#works" class="mob-nav__link">Works</a>
+  <a href="#faq" class="mob-nav__link">FAQ</a>
+  <a href="reserve.html" class="mob-nav__cta">無料相談を予約</a>
+</nav>
 
 <!-- ===================== FV ===================== -->
 <section class="fv">
@@ -794,6 +817,25 @@
 </footer>
 
 <script>
+  // hamburger menu
+  const hamBtn = document.getElementById('hamBtn');
+  const mobNav = document.getElementById('mobNav');
+
+  hamBtn.addEventListener('click', () => {
+    const isOpen = mobNav.classList.toggle('is-open');
+    hamBtn.classList.toggle('is-open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  // メニュー内リンクを押したら閉じる
+  mobNav.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobNav.classList.remove('is-open');
+      hamBtn.classList.remove('is-open');
+      document.body.style.overflow = '';
+    });
+  });
+
   // FAQ accordion
   document.querySelectorAll('.faq__q').forEach(btn => {
     btn.addEventListener('click', () => {
